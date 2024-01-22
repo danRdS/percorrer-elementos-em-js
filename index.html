@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="website icon" type="jpeg" href="assets/images/codigo1.jpeg">
+    <title>Percorrer elementos filhos de um pai</title>
+</head>
+<body>
+    <main>
+        <h1>Renderização</h1>
+        <ul id="lista">
+            <li class="opcao mudar-cor-li" onclick="mudarCor(event)">Brasil</li>
+            <li class="opcao" onclick="mudarCor(event)">Argentina</li>
+            <li class="opcao" onclick="mudarCor(event)">Uruguai</li>
+            <li class="opcao" onclick="mudarCor(event)">Colômbia</li>
+        </ul>
+
+        <section class="area-selecao">
+            <input type="radio" name="alternativa" id="opBrasil" checked>
+            <label for="opBrasil">Brasil</label>
+
+            <input type="radio" name="alternativa" id="opArgentina">
+            <label for="opArgentina">Argentina</label>
+
+            <input type="radio" name="alternativa" id="opUruguai">
+            <label for="opUruguai">Uruguai</label>
+
+            <input type="radio" name="alternativa" id="opColombia">
+            <label for="opColombia">Colômbia</label>
+        </section>
+
+        <article>
+            <h2>Percorrer elementos</h2>
+            <span>Existem algumas formas de percorrer elementos filhos de um elemento pai, dentre elas:</span>
+            <p class="explicacao">
+                Pegando elemento pai e o percorre com o <code>Object.values()</code> pra encontrar seus
+                filhos. Dessa foma será possível ter acesso a todas as propriedades dos elementos filhos.
+            </p>
+            <article class="caixa-codigo">
+                <p>
+                    const lista = document.getElementById('lista');
+                    const opcoesLista = lista.children;
+
+                    Object.values(opcoesLista).forEach(opcao => {
+                        console.log(opcao);
+                    })
+                </p>
+            </article>
+
+            <p class="explicacao">
+                Pega o primeiro elemento e o chama por intermédio de uma função recursiva
+                que percorre os próximos elementos com iteração:
+            </p>
+            <article class="caixa-codigo">
+                <p>
+                    const primeiraOpcaoLista = document.querySelector('li');
+                    let index = 0;
+                    
+                    const apresentarOpcoes = elemento => {
+                        console.log(elemento);    
+                        index = (index + 1) % opcoesLista.length;
+                        if(index) {
+                            const proximo = elemento.nextElementSibling;
+                            apresentarOpcoes(proximo);
+                        }
+                    }
+                </p>
+            </article>
+            
+            <p class="explicacao">Assim será exibido no console após a varredura em ambos os casos:</p>
+            <ul id="segundaLista" class="caixa-codigo">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </article>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
